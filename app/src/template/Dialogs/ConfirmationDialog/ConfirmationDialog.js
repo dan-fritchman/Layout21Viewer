@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 
 import Store from "../../Store";
 import { closeDialogs } from "../../Store/AppUi";
-import { signOut } from "../../auth";
+import { signOut } from "../../Auth";
 
 
 class ConfirmationDialog extends Component {

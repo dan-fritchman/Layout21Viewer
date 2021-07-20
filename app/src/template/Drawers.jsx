@@ -1,18 +1,11 @@
 import React from "react";
-import Drawer from "@material-ui/core/Drawer";
-import * as Scroll from "react-scroll/modules";
-import Hidden from "@material-ui/core/Hidden";
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import { Drawer, Hidden, Box, Link } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Store from "../Store";
-import { toCapWords } from "../utils";
+import Store from "./Store";
 
-const LeftDrawerContent = () => null;
+// FIXME: temporary, empty drawer content 
+const DrawersContent = () => null;
 
 const drawerWidth = 240;
 
@@ -28,7 +21,7 @@ const styles = theme => ({
 });
 
 
-class LeftDrawer extends React.Component {
+class Drawers extends React.Component {
     render() {
         const { classes, enabled } = this.props;
         return (<React.Fragment>
@@ -46,7 +39,7 @@ class LeftDrawer extends React.Component {
 
 
                             {/* FIXME: probably can be Table of Contents */}
-                            <LeftDrawerContent />
+                            <DrawersContent />
 
 
                         </Box>
@@ -67,7 +60,7 @@ class LeftDrawer extends React.Component {
                         <div className={classes.toolbar} />
 
 
-                        <LeftDrawerContent />
+                        <DrawersContent />
 
 
                     </Drawer>
@@ -77,5 +70,5 @@ class LeftDrawer extends React.Component {
     }
 }
 
-LeftDrawer = withStyles(styles)(LeftDrawer);
-export default Store.connect(state => ({ enabled: state.ui.drawers.enabled }))(LeftDrawer);
+Drawers = withStyles(styles)(Drawers);
+export default Store.connect(state => ({ enabled: state.ui.drawers.enabled }))(Drawers);

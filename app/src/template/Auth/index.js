@@ -1,4 +1,4 @@
-import * as AppUi from "./Store/AppUi";
+import * as AppUi from "../Store/AppUi";
 
 export const mount = async () => AppUi.update({isAuthReady: true});
 export const unmount = async () => AppUi.update({isAuthReady: false});
@@ -7,9 +7,9 @@ export const signOut = async () => {};
 
 // import {auth, githubProvider} from "./firebase";
 
-// import Api from "./Api";
-// import Store from "./Store";
-// import * as AppUi from "./Store/AppUi";
+// import Api from "../Api";
+// import Store from "../Store";
+// import * as AppUi from "../Store/AppUi";
 
 
 // let refreshIntervalId = null;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import HomeContent from "../content/HomeContent/HomeContent";
 import NotFoundContent from "../content/NotFoundContent/NotFoundContent";
@@ -22,15 +22,13 @@ const Matcher = MatchComp => {
 
 class Routes extends Component {
     render() {
-        console.log("RENDER ROUTES");
         return (
             <Switch>
-                <Route path="/" exact component={HomeContent} />)}/>
-                <Route path="/whatever" exact={false} component={HomeContent} />)}/>
-                <Route path="/else" exact={false} component={HomeContent} />)}/>
+                <Route path="/" exact component={HomeContent} />
+                <Route path="/whatever" exact={false} component={HomeContent} />
+                <Route path="/else" exact={false} component={HomeContent} />
                 <Route component={NotFoundContent} />
             </Switch>
-
         );
     }
 }

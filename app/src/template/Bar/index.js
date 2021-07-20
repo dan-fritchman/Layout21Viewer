@@ -11,14 +11,13 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import settings from "../../settings";
-import Store from "../../Store";
+import settings from "../settings";
+import Store from "../Store";
 import Controls from "./Controls";
-import ThemeToggle from "../../ThemeToggle";
-import { signInWithProvider } from "../../auth";
-import style from "../../style";
-import * as AppUi from "../../Store/AppUi";
-import * as utils from "../../utils";
+import ThemeToggle from "../ThemeToggle";
+import { signInWithProvider } from "../Auth";
+import * as AppUi from "../Store/AppUi";
+import * as utils from "../utils";
 
 
 const openSettingsDialog = () => AppUi.openDialog("settings");
@@ -103,7 +102,7 @@ export class Bar extends Component {
                 {/*    <MenuIcon/>*/}
                 {/*</IconButton>*/}
 
-                <style.h6 style={{ flexGrow: 1 }}>{title}</style.h6>
+                <h6 style={{ flexGrow: 1 }}>{title}</h6>
 
                 {/* Modal Control-Panel */}
                 <Controls />

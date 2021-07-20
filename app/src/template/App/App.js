@@ -7,14 +7,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core";
 
 import Headers from "../Headers";
-import LaunchScreen from "../layout/LaunchScreen/LaunchScreen";
-import Bar from "../layout/Bar/Bar";
+import Waiting from "../content/Waiting";
+import Bar from "../Bar";
 import Routes from "../Routes";
 import Dialogs from "../Dialogs";
-import Snackbar from "./Snackbar";
+import Snackbar from "../Snackbar";
 import Store, { history } from "../Store";
-import * as auth from "../auth";
-import LeftDrawer from "./LeftDrawer";
+import * as auth from "../Auth";
+import Drawers from "../Drawers";
 
 
 const styles = theme => ({
@@ -45,15 +45,14 @@ class App extends Component {
     componentWillUnmount = () => auth.unmount();
 
     content = () => {
-        console.log("GETTIN APP CONTENT");
         const { classes } = this.props;
 
         return <div className={classes.root}>
             {/* Top AppBar/ToolBar */}
             <Bar />
 
-            {/* Left-Side Drawer */}
-            <LeftDrawer />
+            {/* Vertical Side Drawers */}
+            <Drawers />
 
             {/* Main Content */}
             <main className={classes.content}>
@@ -73,15 +72,13 @@ class App extends Component {
     };
 
     render() {
-        console.log("START RENDER APP");
-        const { isAuthReady } = this.props;
-        const { themeObj } = this.props;
+        const { isAuthReady, themeObj } = this.props;
 
         return <MuiThemeProvider theme={themeObj}>
             <React.Fragment>
                 {/* IMPORTANT: CssBaseline needs to be *inside* MuiThemeProvider */}
                 <CssBaseline />
-                {isAuthReady ? <this.content /> : <LaunchScreen />}
+                {isAuthReady ? <this.content /> : <Waiting />}
             </React.Fragment>
         </MuiThemeProvider>;
     }
@@ -99,10 +96,10 @@ App = Store.connect(
 )(App);
 
 
-export default function AppWrapper(props) {
+export default function AppWrapper(_) {
     return (
         <Store.Provider>
-            <PersistGate loading={<LaunchScreen />} persistor={Store.persistor}>
+            <PersistGate loading={<Waiting />} persistor={Store.persistor}>
                 <Router history={history}>
                     <React.Fragment>
                         <Headers />

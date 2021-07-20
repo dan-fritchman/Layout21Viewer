@@ -64,23 +64,24 @@ const updateTheme = (state, action) => {
     };
 };
 
-
-const updateThemeType = (state, action) => {
-    return state;
-};
-
-
 const createInitialState = () => {
     /* Create and return our initial index-state. */
-    let defaultThemeOptions = {
-        primary: settings.theme.primaryColor.name,
-        secondary: settings.theme.secondaryColor.name,
-        type: settings.theme.type
-    };
+
+    // Check the OS dark/light setting at startup
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const themetype = prefersDarkMode ? 'dark' : 'light';
+
+    // Load all other theme & color settings from localStorage
     let themeOptions = JSON.parse(localStorage.getItem("theme"));
     if (!themeOptions) {
-        themeOptions = defaultThemeOptions;
+        themeOptions = {
+            primary: settings.theme.primaryColor.name,
+            secondary: settings.theme.secondaryColor.name,
+        };
     }
+    // Regardless of whethere colors are read from localStorage or not,
+    // Take the OS-preferred light/dark theme.
+    themeOptions.type = themetype;
     return {
         options: themeOptions,
         obj: themeFromOptions(themeOptions)
@@ -96,8 +97,6 @@ export function themeReducer(state = initialState, action) {
     switch (action.type) {
         case "UPDATE_THEME":
             return updateTheme(state, action);
-        case "THEME_TYPE_CHANGE":
-            return updateThemeType(state, action);
         default:
             return state;
     }

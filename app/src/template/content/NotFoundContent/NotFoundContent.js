@@ -6,7 +6,6 @@ import Fab from '@material-ui/core/Fab';
 import FindIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
 
-import Ui from "../../style";
 import * as AppUi from "../../Store/AppUi";
 import CenterLayout from "../../layout/CenterLayout";
 
@@ -24,7 +23,7 @@ const styles = (theme) => ({
 });
 
 export class NotFoundContent extends Component {
-    componentDidMount = async () => {
+    componentDidMount = () => {
         AppUi.disableDrawers();
     };
     componentWillUnmount = () => {
@@ -35,8 +34,8 @@ export class NotFoundContent extends Component {
 
         return (<CenterLayout>
             <FindIcon className={classes.emptyStateIcon} color="action" />
-            <Ui.h1>Content Not Found</Ui.h1>
-            <Ui.h4>Sorry. Cant Find That.</Ui.h4>
+            <h1>Content Not Found</h1>
+            <h4>Sorry. Cant Find That.</h4>
             <Fab className={classes.button} color="secondary" component={Link} to="/" variant="extended">
                 <HomeIcon className={classes.buttonIcon} /> Go Home
             </Fab>

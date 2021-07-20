@@ -15,8 +15,8 @@ export function getEventValue(func) {
     Mostly some glue logic between how different
     Select/ UI elements are handled.   */
     return function innerFunc(ev) {
-        const {target} = ev;
-        const {value} = target;
+        const { target } = ev;
+        const { value } = target;
         return func(value);
     };
 }
@@ -37,10 +37,10 @@ export const toCapWords = num => {
 
 export const userDisplay = user => {
     // Peel out user info
-    const {displayName, photoURL, email} = user;
+    const { displayName, photoURL, email } = user;
     const showName = displayName || email || "NoName";
-    const avatarGen = () => photoURL ? <Avatar src={photoURL}/> : <PersonIcon/>;
-    return {showName, avatarGen};
+    const avatarGen = () => photoURL ? <Avatar src={photoURL} /> : <PersonIcon />;
+    return { showName, avatarGen };
 };
 
 export const comingSoon = () => console.log("COMING SOON!");

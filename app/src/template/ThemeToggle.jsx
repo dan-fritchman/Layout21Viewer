@@ -1,23 +1,13 @@
 import React from "react";
-
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import {
-    CodeIcon as LightbulbOutlineIcon,
-    CodeIcon as LightbulbFullIcon,
-    // FIXME! 
-    // LightbulbOutline as LightbulbOutlineIcon,
-    // LightbulbFull as LightbulbFullIcon,
-    // } from '@material-ui/docs';
-} from "@material-ui/icons/Code";
+import WbIncandescentOutlinedIcon from '@material-ui/icons/WbIncandescentOutlined';
+import WbIncandescentRoundedIcon from '@material-ui/icons/WbIncandescentRounded';
 
 import Store from "./Store";
 
 
 export function ThemeToggle(props) {
-    return null; // FIXME! 
-
-
 
     const { themeOptions } = props;
     if (!themeOptions) return null;
@@ -32,7 +22,7 @@ export function ThemeToggle(props) {
     return <Tooltip title={"Toggle Dark/ Light"} enterDelay={300}>
         <div>
             <IconButton onClick={handleTogglePaletteType}>
-                {paletteLight ? (<LightbulbOutlineIcon />) : (<LightbulbFullIcon />)}
+                {paletteLight ? (<WbIncandescentOutlinedIcon />) : (<WbIncandescentRoundedIcon />)}
             </IconButton>
         </div>
     </Tooltip>;

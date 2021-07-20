@@ -5,8 +5,8 @@
 import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 
-import Store from "../Store";
-import * as AppUi from "../Store/AppUi";
+import Store from "./Store";
+import * as AppUi from "./Store/AppUi";
 
 
 export function SnackbarWrapper(props) {
