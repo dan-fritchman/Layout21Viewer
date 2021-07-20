@@ -1,0 +1,17 @@
+{
+  "name": "INSERT_PROJNAME",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others \"cd api && yarn dev\" \"cd app && yarn dev\" ",
+    "start": "concurrently --kill-others \"cd api && yarn start\" \"cd app && yarn start\" ",
+    "gen": "yarn run apollo codegen:generate --target  typescript   --outputFlat app/types",
+    "build": "yarn gen && cd app && yarn build",
+    "deploy": "cd app && yarn deploy"
+  }
+}
