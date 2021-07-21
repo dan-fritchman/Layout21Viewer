@@ -24,53 +24,49 @@ const routerReducer = connectRouter(history);
 // Add Redux devtools
 let composeEnhancers = compose;
 if (typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    });
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+  });
 }
 
 const allReducers = combineReducers({
-    user: userReducer,
-    ui: uiReducer,
-    theme: themeReducer,
-    router: routerReducer
+  user: userReducer,
+  ui: uiReducer,
+  theme: themeReducer,
+  router: routerReducer,
 });
 
 const baseReducer = (state, action) => {
-    if (action.type === "RESET_APP") state = undefined;
-    return allReducers(state, action);
+  if (action.type === "RESET_APP") state = undefined;
+  return allReducers(state, action);
 };
 
 const persistConfig = {
-    key: "INSERT_PROJNAME::root",
-    storage: storage,
-    whitelist: ["user"]
+  key: "INSERT_PROJNAME::root",
+  storage: storage,
+  whitelist: ["user"],
 };
 
 const store = createStore(
-    persistReducer(persistConfig, baseReducer),
-    undefined,
-    composeEnhancers(applyMiddleware(...middlewares))
+  persistReducer(persistConfig, baseReducer),
+  undefined,
+  composeEnhancers(applyMiddleware(...middlewares))
 );
 
 const persistor = persistStore(store);
 
-const StoreProvider = props => {
-    return <Provider store={store}>
-        {props.children}
-    </Provider>;
+const StoreProvider = (props) => {
+  return <Provider store={store}>{props.children}</Provider>;
 };
 
 export const Store = {
-    connect,
-    store,
-    persistor,
-    dispatch: store.dispatch,
-    getState: store.getState,
-    Provider: StoreProvider,
-    connectUser: Comp => connect(state => ({ user: state.user }))(Comp),
-
+  connect,
+  store,
+  persistor,
+  dispatch: store.dispatch,
+  getState: store.getState,
+  Provider: StoreProvider,
+  connectUser: (Comp) => connect((state) => ({ user: state.user }))(Comp),
 };
 
 export default Store;
-

@@ -1,7 +1,7 @@
 import * as AppUi from "../Store/AppUi";
 
-export const mount = async () => AppUi.update({isAuthReady: true});
-export const unmount = async () => AppUi.update({isAuthReady: false});
+export const mount = async () => AppUi.update({ isAuthReady: true });
+export const unmount = async () => AppUi.update({ isAuthReady: false });
 export const signInWithProvider = async () => {};
 export const signOut = async () => {};
 
@@ -11,13 +11,10 @@ export const signOut = async () => {};
 // import Store from "../Store";
 // import * as AppUi from "../Store/AppUi";
 
-
 // let refreshIntervalId = null;
 // let authObserver = null;
 
 // const getIdToken = () => auth.currentUser.getIdToken(true); // Force refresh = true
-
-
 
 // export const mount = async () => {
 //     /* App-Mount-Time Auth Setup
@@ -80,7 +77,7 @@ export const signOut = async () => {};
 //     AppUi.update({isPerformingAuthAction: true});
 
 //     let user = null;
-//     try { 
+//     try {
 //         user = await _signIn();
 //         AppUi.closeDialogs();
 //         AppUi.openSnackbar(`Signed in as ${user.displayName || user.email}`);
@@ -133,4 +130,3 @@ export const signOut = async () => {};
 //     }
 //     return null;
 // };
-

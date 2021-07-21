@@ -1,5 +1,3 @@
-
 # AppTemplate
 
-Template starter using React + Material UI. 
-
+Template starter using React + Material UI.

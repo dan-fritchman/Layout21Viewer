@@ -2,7 +2,6 @@ import React from "react";
 
 import Store from "../Store";
 
-
 class Controls extends React.Component {
   render() {
     return null;
@@ -19,7 +18,6 @@ class Controls extends React.Component {
   }
 }
 
-export default Store.connect(state => ({
-  mode: state.ui.controlMode
+export default Store.connect((state) => ({
+  mode: state.ui.controlMode,
 }))(Controls);
-

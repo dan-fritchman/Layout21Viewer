@@ -13,7 +13,6 @@ import Store from "../../Store";
 import { closeDialogs } from "../../Store/AppUi";
 import { signOut } from "../../Auth";
 
-
 class ConfirmationDialog extends Component {
   handleKeyPress = (event) => {
     const key = event.key;
@@ -38,7 +37,7 @@ class ConfirmationDialog extends Component {
       cancelText,
       okText,
       disableOkButton,
-      highlightOkButton
+      highlightOkButton,
     } = this.props;
 
     // Dialog Events
@@ -55,28 +54,32 @@ class ConfirmationDialog extends Component {
       <Dialog open={open} onClose={onClose} onKeyPress={this.handleKeyPress}>
         {title && <DialogTitle>{title}</DialogTitle>}
 
-        {contentText &&
-        <DialogContent>
-          <DialogContentText>{contentText}</DialogContentText>
-        </DialogContent>
-        }
+        {contentText && (
+          <DialogContent>
+            <DialogContentText>{contentText}</DialogContentText>
+          </DialogContent>
+        )}
 
-        {(onCancelClick || onOkClick) &&
-        <DialogActions>
-          {onCancelClick &&
-          <Button color="primary" onClick={onCancelClick}>
-            {cancelText || "Cancel"}
-          </Button>
-          }
+        {(onCancelClick || onOkClick) && (
+          <DialogActions>
+            {onCancelClick && (
+              <Button color="primary" onClick={onCancelClick}>
+                {cancelText || "Cancel"}
+              </Button>
+            )}
 
-          {onOkClick &&
-          <Button color="primary" disabled={disableOkButton} variant={highlightOkButton && "contained"}
-                  onClick={onOkClick}>
-            {okText || "OK"}
-          </Button>
-          }
-        </DialogActions>
-        }
+            {onOkClick && (
+              <Button
+                color="primary"
+                disabled={disableOkButton}
+                variant={highlightOkButton && "contained"}
+                onClick={onOkClick}
+              >
+                {okText || "OK"}
+              </Button>
+            )}
+          </DialogActions>
+        )}
       </Dialog>
     );
   }
@@ -94,31 +97,30 @@ ConfirmationDialog.propTypes = {
 
   onClose: PropTypes.func.isRequired,
   onCancelClick: PropTypes.func,
-  onOkClick: PropTypes.func
+  onOkClick: PropTypes.func,
 };
 
-
-export class ConfirmationDialogWrapper extends React.Component { // FIXME: get rid of this
+export class ConfirmationDialogWrapper extends React.Component {
+  // FIXME: get rid of this
   render() {
     const { isPerformingAuthAction } = this.props;
 
-    return <ConfirmationDialog
-      open
-      highlightOkButton
-
-      title="Sign out?"
-      contentText="While signed out you are unable to manage your profile and conduct other activities that require you to be signed in."
-      okText="Sign Out"
-      disableOkButton={isPerformingAuthAction}
-
-      onClose={closeDialogs}
-      onCancelClick={closeDialogs}
-      onOkClick={signOut}
-    />;
+    return (
+      <ConfirmationDialog
+        open
+        highlightOkButton
+        title="Sign out?"
+        contentText="While signed out you are unable to manage your profile and conduct other activities that require you to be signed in."
+        okText="Sign Out"
+        disableOkButton={isPerformingAuthAction}
+        onClose={closeDialogs}
+        onCancelClick={closeDialogs}
+        onOkClick={signOut}
+      />
+    );
   }
 }
 
-export default Store.connect(state => ({
+export default Store.connect((state) => ({
   isPerformingAuthAction: state.ui.isPerformingAuthAction,
 }))(ConfirmationDialogWrapper);
-

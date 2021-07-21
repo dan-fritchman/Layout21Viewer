@@ -14,13 +14,11 @@ import AppearanceTab from "./AppearanceTab";
 import Store from "../../Store";
 import { closeDialogs } from "../../Store/AppUi";
 
-
 const styles = (theme) => ({
   tabs: {
-    marginBottom: theme.spacing(1)
-  }
+    marginBottom: theme.spacing(1),
+  },
 });
-
 
 export class SettingsDialog extends Component {
   state = { selectedTab: 0 };
@@ -39,13 +37,13 @@ export class SettingsDialog extends Component {
 
   changeTab = (event, value) => {
     this.setState({
-      selectedTab: value
+      selectedTab: value,
     });
   };
 
   changeIndex = (index) => {
     this.setState({
-      selectedTab: index
+      selectedTab: index,
     });
   };
 
@@ -58,50 +56,57 @@ export class SettingsDialog extends Component {
   // };
 
   render() {
-    const {
-      classes,
-      fullScreen,
-      open,
-      user,
-      isPerformingAuthAction
-    } = this.props;
+    const { classes, fullScreen, open, user, isPerformingAuthAction } =
+      this.props;
 
     const { selectedTab } = this.state;
 
     return (
-      <Dialog fullScreen={fullScreen} open={open} onClose={closeDialogs} onKeyPress={this.handleKeyPress}>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={closeDialogs}
+        onKeyPress={this.handleKeyPress}
+      >
         <DialogTitle>Settings</DialogTitle>
 
-        <Tabs className={classes.tabs} indicatorColor="primary" textColor="primary" onChange={this.changeTab}
-              value={selectedTab} variant="fullWidth">
-          <Tab label="Account"/>
-          <Tab label="Appearance"/>
+        <Tabs
+          className={classes.tabs}
+          indicatorColor="primary"
+          textColor="primary"
+          onChange={this.changeTab}
+          value={selectedTab}
+          variant="fullWidth"
+        >
+          <Tab label="Account" />
+          <Tab label="Appearance" />
         </Tabs>
 
         <DialogContent>
           <Hidden only="xs">
-            {selectedTab === 0 &&
-            <AccountTab
-              user={user}
-              isPerformingAuthAction={isPerformingAuthAction}
-              isVerifyingEmailAddress={false}
-            />
-            }
+            {selectedTab === 0 && (
+              <AccountTab
+                user={user}
+                isPerformingAuthAction={isPerformingAuthAction}
+                isVerifyingEmailAddress={false}
+              />
+            )}
 
-            {selectedTab === 1 &&
-            <AppearanceTab onClose={closeDialogs}/>
-            }
+            {selectedTab === 1 && <AppearanceTab onClose={closeDialogs} />}
           </Hidden>
 
           <Hidden only={["sm", "md", "lg", "xl"]}>
-            <SwipeableViews index={selectedTab} onChangeIndex={this.changeIndex}>
+            <SwipeableViews
+              index={selectedTab}
+              onChangeIndex={this.changeIndex}
+            >
               <AccountTab
                 user={user}
                 isPerformingAuthAction={isPerformingAuthAction}
                 isVerifyingEmailAddress={false}
               />
 
-              <AppearanceTab onClose={closeDialogs}/>
+              <AppearanceTab onClose={closeDialogs} />
             </SwipeableViews>
           </Hidden>
         </DialogContent>
@@ -115,13 +120,12 @@ SettingsDialog.propTypes = {
   fullScreen: PropTypes.bool,
   open: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
-  isPerformingAuthAction: PropTypes.bool.isRequired
+  isPerformingAuthAction: PropTypes.bool.isRequired,
 };
 
 SettingsDialog = withStyles(styles)(SettingsDialog);
 
-export default Store.connect(state => ({
+export default Store.connect((state) => ({
   isPerformingAuthAction: state.ui.isPerformingAuthAction,
-  user: state.user
+  user: state.user,
 }))(SettingsDialog);
-

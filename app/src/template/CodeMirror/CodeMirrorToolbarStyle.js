@@ -8,4 +8,3 @@ const CodeMirrorToolbarStyle = styled.div`
 `;
 
 export default CodeMirrorToolbarStyle;
-

@@ -7,6 +7,5 @@ describe("App", () => {
   it("Renders without props", () => {
     // const app = shallow(<App/>);
     console.log("FIXME:     Cannot find module 'react' from 'index.js'");
-
   });
 });

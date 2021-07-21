@@ -10,7 +10,6 @@ import "firebase/performance";
 
 import settings from "./settings";
 
-
 firebase.initializeApp(settings.credentials.firebase);
 const auth = firebase.auth();
 
@@ -21,9 +20,4 @@ auth.useDeviceLanguage();
 
 const githubProvider = new firebase.auth.GithubAuthProvider();
 
-export {
-  firebase,
-  auth,
-  githubProvider
-};
-
+export { firebase, auth, githubProvider };

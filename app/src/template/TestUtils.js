@@ -3,37 +3,33 @@ import "firebase/auth";
 import * as admin from "firebase-admin";
 
 import settings from "./settings";
-const serviceAccount = require("../../api/serviceAccountKey.json");
 
 import Api from "./Api";
-
+const serviceAccount = require("../../api/serviceAccountKey.json");
 
 export const initFirebase = async () => {
-    // Initialize client side stuff
-    firebase.initializeApp(
-        settings.credentials.firebase
-    );
-    // Initialize admin/ server side stuff
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: "https://hw21-firebase-project.firebaseio.com"
-    });
+  // Initialize client side stuff
+  firebase.initializeApp(settings.credentials.firebase);
+  // Initialize admin/ server side stuff
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://hw21-firebase-project.firebaseio.com",
+  });
 };
 
 export const getMockUser = async (uid) => {
-    if (!uid) throw new Error("Missing Required `uid` for `getMockUser`");
+  if (!uid) throw new Error("Missing Required `uid` for `getMockUser`");
 
-    // Create a custom admin token
-    const adminAuth = admin.auth();
-    const customToken = await adminAuth.createCustomToken(uid);
-    // Send token back to client
-    const user = await firebase.auth().signInWithCustomToken(customToken);
-    const userToken = await firebase.auth().currentUser.getIdToken(true);
-    const context = Api.getContext(userToken);
+  // Create a custom admin token
+  const adminAuth = admin.auth();
+  const customToken = await adminAuth.createCustomToken(uid);
+  // Send token back to client
+  const user = await firebase.auth().signInWithCustomToken(customToken);
+  const userToken = await firebase.auth().currentUser.getIdToken(true);
+  const context = Api.getContext(userToken);
 
-    const {displayName, photoURL} = user;
-    const userData = {uid, displayName, photoURL};
+  const { displayName, photoURL } = user;
+  const userData = { uid, displayName, photoURL };
 
-    return {context, userData};
+  return { context, userData };
 };
-

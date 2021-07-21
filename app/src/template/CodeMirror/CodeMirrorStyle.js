@@ -2,7 +2,7 @@ import React from "react";
 import CodeMirrors from "./CodeMirror";
 import styled from "styled-components";
 
-const CodeMirrorEditor = props => <CodeMirrors {...props} />;
+const CodeMirrorEditor = (props) => <CodeMirrors {...props} />;
 
 const codeFontSize = "14pt";
 
@@ -376,7 +376,7 @@ const CodeMirror = styled(CodeMirrorEditor)`
     padding-right: 0.1px;
   }
   .cm-tab-wrap-hack:after {
-    content: '';
+    content: "";
   }
   span.CodeMirror-selectedtext {
     background: none;
@@ -384,4 +384,3 @@ const CodeMirror = styled(CodeMirrorEditor)`
 `;
 
 export default CodeMirror;
-

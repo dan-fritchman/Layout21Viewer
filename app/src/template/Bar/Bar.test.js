@@ -5,11 +5,6 @@ import { Bar } from "./Bar";
 
 describe("Bar", () => {
   it("Renders without props", () => {
-    const bar = shallow(
-      <Bar
-        title=""
-        isPerformingAuthAction
-        user={null}
-      />);
+    const bar = shallow(<Bar title="" isPerformingAuthAction user={null} />);
   });
 });

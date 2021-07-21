@@ -3,7 +3,6 @@ import { shallow } from "enzyme";
 
 import { SettingsDialog } from "./SettingsDialog";
 
-
 it("renders without crashing", () => {
   shallow(
     <SettingsDialog
@@ -15,4 +14,3 @@ it("renders without crashing", () => {
     />
   );
 });
-
