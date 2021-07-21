@@ -3,6 +3,8 @@ import { Drawer, Hidden, Box, Link } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import Store from "./Store";
+import LayerList from "../layout/LayerList";
+
 
 // FIXME: temporary, empty drawer content
 const DrawersContent = () => null;
@@ -38,7 +40,7 @@ class Drawers extends React.Component {
                 <div className={classes.toolbar} />
                 <Box style={{ flexGrow: 1 }}>
                   {/* FIXME: probably can be Table of Contents */}
-                  <DrawersContent />
+                  <LayerList />
                 </Box>
                 <Box p={4}>
                   <Link

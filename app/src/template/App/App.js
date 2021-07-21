@@ -15,6 +15,7 @@ import Snackbar from "../Snackbar";
 import Store, { history } from "../Store";
 import * as auth from "../Auth";
 import Drawers from "../Drawers";
+import LayoutWindow from "../../layout";
 
 const styles = (theme) => ({
   root: {
@@ -38,8 +39,12 @@ const styles = (theme) => ({
 });
 
 class App extends Component {
-  componentDidMount = () => auth.mount();
-  componentWillUnmount = () => auth.unmount();
+  componentDidMount = () => {
+    auth.mount();
+  };
+  componentWillUnmount = () => {
+    auth.unmount();
+  };
 
   content = () => {
     const { classes } = this.props;
@@ -58,7 +63,8 @@ class App extends Component {
           <div className={classes.toolbar} />
           <div>
             {/* *Really* Main Content */}
-            <Routes />
+            {/* <Routes /> */}
+            <LayoutWindow />
           </div>
         </main>
 
