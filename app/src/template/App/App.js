@@ -61,11 +61,11 @@ class App extends Component {
         <main className={classes.content}>
           {/* Block out ToolBar */}
           <div className={classes.toolbar} />
-          <div>
-            {/* *Really* Main Content */}
-            {/* <Routes /> */}
-            <LayoutWindow />
-          </div>
+          {/* <div> */}
+          {/* *Really* Main Content */}
+          {/* <Routes /> */}
+          {/* </div> */}
+          <LayoutWindow />
         </main>
 
         {/* Typically-Hidden Dialog Boxes */}

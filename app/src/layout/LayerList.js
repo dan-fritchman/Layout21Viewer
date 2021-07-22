@@ -12,7 +12,7 @@ import {
 import CommentIcon from "@material-ui/icons/Comment";
 
 import { layerList, layerMap } from "./load";
-import { rerender } from "./";
+import { LayoutManager } from "./";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LayerList() {
+  const layerList = LayoutManager.layers.list;
+
   const classes = useStyles();
   const [checked, setChecked] = React.useState(
     Array(layerList.length).fill(true)
@@ -31,9 +33,8 @@ export default function LayerList() {
   const handleToggle = (idx) => () => {
     let newChecked = [...checked];
     newChecked[idx] = !newChecked[idx];
-    const layer1 = layerList[idx];
-    layerMap.get(layer1.layernum).ctr.visible = newChecked[idx];
-    rerender();
+    LayoutManager.layers.setVisibility(idx, newChecked[idx]);
+    LayoutManager.render();
     setChecked(newChecked);
   };
 
