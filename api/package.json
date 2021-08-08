@@ -1,0 +1,44 @@
+{
+  "name": "INSERT_PROJNAME-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "protoc": "mkdir -p src/proto && pbjs -t static-module -w commonjs ../../Layout21/layout21protos/protos/raw.proto -o src/proto/index.js",
+    "build": "babel -s -d build/ src/ ",
+    "start": "yarn build && node build/server.js ",
+    "dev": "nodemon --verbose --exec babel-node src/server.js",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@msgpack/msgpack": "^2.7.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.0",
+    "protobufjs": "^6.11.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "nodemon": "^2.0.12"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb/base",
+      "plugin:import/errors"
+    ],
+    "rules": {
+      "no-use-before-define": 0,
+      "arrow-body-style": 0,
+      "dot-notation": 0,
+      "no-console": 0
+    },
+    "env": {
+      "mocha": true
+    }
+  }
+}

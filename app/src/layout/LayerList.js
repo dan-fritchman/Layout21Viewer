@@ -1,18 +1,22 @@
+//!
+//! # SideBar-Designed Layer-List
+//!
+//! Checkboxes for layer visibility
+//!
+
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemSecondaryAction,
+  // ListItemSecondaryAction,
   ListItemText,
   Checkbox,
-  IconButton,
+  // IconButton,
 } from "@material-ui/core";
-import CommentIcon from "@material-ui/icons/Comment";
-
-import { layerList, layerMap } from "./load";
-import { LayoutManager } from "./";
+import { LayoutManager } from "./managers";
+import Store from "../template/Store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LayerList() {
+function LayerList() {
   const layerList = LayoutManager.layers.list;
-
   const classes = useStyles();
   const [checked, setChecked] = React.useState(
     Array(layerList.length).fill(true)
@@ -73,3 +76,13 @@ export default function LayerList() {
     </List>
   );
 }
+/// Wrap that, so we don't render it until layout-loading is ready
+function LayerListWrapper(props) {
+  if (!props.ready) return null;
+  return <LayerList />;
+}
+
+// Grab the "layout ready" state from the store
+export default Store.connect((state) => {
+  return { ready: state.layout && state.layout.ready };
+})(LayerListWrapper);

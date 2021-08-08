@@ -5,6 +5,7 @@
 import React from "react";
 
 import { Provider, connect } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
@@ -29,7 +30,15 @@ if (typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
   });
 }
 
+// Simple indication of whether the main layout window has been loaded
+const layoutStateReducer = (state = { ready: false }, action) => {
+  if (action.type === "LAYOUT_STATE") {
+    return { ready: action.ready };
+  }
+  return state;
+};
 const allReducers = combineReducers({
+  layout: layoutStateReducer,
   user: userReducer,
   ui: uiReducer,
   theme: themeReducer,
@@ -46,11 +55,16 @@ const persistConfig = {
   storage: storage,
   whitelist: ["user"],
 };
+const reducer = persistReducer(persistConfig, baseReducer);
 
+// const store = createStore(
+//   reducer,
+//   undefined, // What is this argument?
+//   composeEnhancers(applyMiddleware(...middlewares))
+// );
 const store = createStore(
-  persistReducer(persistConfig, baseReducer),
-  undefined,
-  composeEnhancers(applyMiddleware(...middlewares))
+  reducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 const persistor = persistStore(store);

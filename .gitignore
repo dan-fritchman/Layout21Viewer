@@ -1,5 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+./public 
+**/build
 .firebase
 scratch
 
@@ -96,3 +98,5 @@ lerna-debug.log
 Thumbs.db
 
 .next
+
+.vercel

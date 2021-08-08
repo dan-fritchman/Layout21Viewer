@@ -5,7 +5,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Store from "./Store";
 import LayerList from "../layout/LayerList";
 
-
 // FIXME: temporary, empty drawer content
 const DrawersContent = () => null;
 
@@ -39,7 +38,6 @@ class Drawers extends React.Component {
                 {/* This little trick places AppBar over side ToolBar */}
                 <div className={classes.toolbar} />
                 <Box style={{ flexGrow: 1 }}>
-                  {/* FIXME: probably can be Table of Contents */}
                   <LayerList />
                 </Box>
                 <Box p={4}>
