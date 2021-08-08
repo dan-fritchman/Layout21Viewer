@@ -2,7 +2,7 @@
   "name": "INSERT_PROJNAME",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "concurrently": "^4.1.0",
@@ -25,5 +25,8 @@
     "start": "cd api && yarn && yarn start",
     "dev": "concurrently --kill-others \"cd api && yarn && yarn dev\" \"cd app && yarn && yarn dev\" "
   },
-  "dependencies": {}
+  "engines": {
+    "node": "14.x",
+    "yarn": "1.22.x"
+  }
 }
