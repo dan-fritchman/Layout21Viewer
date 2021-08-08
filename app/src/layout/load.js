@@ -2,11 +2,9 @@ import * as proto from "../proto";
 const Library = proto.layout21.raw.Library;
 
 const API_PORT = process.env.PORT || 5000;
-const API_URL = process.env.API_URL || `http://localhost:${API_PORT}/api`;
-// const API_URL = process.env.VERCEL
-//   ? "https://layout-app2-8ushztcmf-dan-fritchman.vercel.app/api/build/server"
-//   : "http://localhost:5000/api";
+const API_URL = process.env.REACT_APP_API_URL || `http://localhost:${API_PORT}/api`;
 
+console.log(process.env);
 console.log(`API_URL: ${API_URL}`);
 
 export const loadSample = async () => {
