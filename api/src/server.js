@@ -1,26 +1,28 @@
+const path = require("path");
+const cors = require("cors");
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 5000;
-// const fs = require("fs");
-// const cors = require("cors");
-// const proto = require("./proto");
+const app = express().use(cors());
 
+/// Get the sample layout
 const getSample = (_req, res) => {
   console.log("GETTING");
-  res.sendFile("/Users/dan/dev/dan/layout-app2/api/cells.proto/dff.bin");
-  // res.sendFile("/Users/dan/dev/dan/layout-app2/api/cells.proto/osci.bin");
+  const sampleFile = path.resolve(__dirname, "../cells.proto", "dff.bin");
+  console.log(sampleFile);
+  res.sendFile(sampleFile);
 };
 
-// app.use(
-//     cors({
-//       origin: "http://localhost:3000", // restrict calls to those this address
-//       methods: "GET" // only allow GET requests
-//     })
-//   );
-// app.get("/", getSample);
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
-// module.exports = app;
+// Set up the API endpoint
+app.get("/api", getSample);
 
-export default getSample;
+// All other GET requests not handled before will return our app
+app.use(express.static(path.resolve(__dirname, "../../app/build")));
+app.get("*", (_req, res) => {
+  res.sendFile(path.resolve(__dirname, "../../app/build", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`);
+});
+
+module.exports = app;

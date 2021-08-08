@@ -1,13 +1,13 @@
 import * as proto from "../proto";
 const Library = proto.layout21.raw.Library;
 
-const API_URL = process.env.VERCEL
-  ? "https://layout-app2-8ushztcmf-dan-fritchman.vercel.app/api/build/server"
-  : "http://localhost:5000";
+const API_PORT = process.env.PORT || 5000;
+const API_URL = process.env.API_URL || `http://localhost:${API_PORT}/api`;
+// const API_URL = process.env.VERCEL
+//   ? "https://layout-app2-8ushztcmf-dan-fritchman.vercel.app/api/build/server"
+//   : "http://localhost:5000/api";
 
-// Load a sample layout and layer-set from file
-// import sample1 from "./sample1.json";
-// import cell from "./cells/AAA_Slice_edit_sampfix_SA_wrap.json";
+console.log(`API_URL: ${API_URL}`);
 
 export const loadSample = async () => {
   // ProtoBuf Edition

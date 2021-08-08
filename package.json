@@ -21,8 +21,9 @@
   },
   "scripts": {
     "fmt": "yarn run prettier --write .",
+    "start": "cd app && yarn && yarn build && cd .. && cd api && yarn && yarn start",
     "dev": "concurrently --kill-others \"cd api && yarn && yarn dev\" \"cd app && yarn && yarn dev\" ",
-    "start": "concurrently --kill-others \"cd api && yarn && yarn start\" \"cd app && yarn && yarn start\" ",
-    "build": "CI=false concurrently \"cd api && yarn && yarn build\" \"cd app && yarn && yarn build && mv build ../public\" "
-  }
+    "build": "concurrently \"cd api && yarn && yarn build\" \"cd app && yarn && yarn build && mv build ../public\" "
+  },
+  "dependencies": {}
 }
