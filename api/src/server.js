@@ -3,11 +3,17 @@ const cors = require("cors");
 const express = require("express");
 const app = express().use(cors());
 
-/// Get the sample layout
+/// Get a/the sample layout
 const getSample = (_req, res) => {
-  // const sampleFile = path.resolve(__dirname, "../../samples", "dff.bin");
-  const sampleFile = path.resolve(__dirname, "../../samples", "secret.bin");
+  // const sampleFile = path.resolve(__dirname, "../../samples", "dff.bin.gz");
+  const sampleFile = path.resolve(__dirname, "../../samples", "secret.bin.gz");
   console.log(`Sending layout sample ${sampleFile}`);
+
+  res.setHeader("Content-Encoding", "gzip");
+  res.setHeader(
+    "Content-Type",
+    "application/protobuf; proto=layout21raw.Library"
+  );
   res.sendFile(sampleFile);
 };
 
