@@ -120,7 +120,7 @@ export class Bar extends Component {
 
   render() {
     const { classes } = this.props;
-    const { title, user } = this.props;
+    const { title /*user*/ } = this.props;
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
@@ -136,9 +136,10 @@ export class Bar extends Component {
           {/* Modal Control-Panel */}
           <Controls />
 
-          {/* Theme-Toggle and User/Log-In Button */}
+          {/* Dark/Light Theme-Toggle */}
           <ThemeToggle />
-          {!!user ? this.userButton() : this.loginButton()}
+          {/* FIXME: User/Log-In Button */}
+          {/* {!!user ? this.userButton() : this.loginButton()} */}
         </Toolbar>
       </AppBar>
     );

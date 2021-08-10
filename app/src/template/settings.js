@@ -23,16 +23,16 @@ import blueGray from "@material-ui/core/colors/blueGrey";
 /* eslint-enable no-unused-vars */
 
 const settings = {
-  title: "INSERT_PROJNAME",
+  title: "Layout21Viewer",
 
   theme: {
     primaryColor: {
-      name: "red",
-      import: red,
-    },
-    secondaryColor: {
       name: "teal",
       import: teal,
+    },
+    secondaryColor: {
+      name: "green",
+      import: green,
     },
     type: "dark",
   },

@@ -1,6 +1,6 @@
 {
-  "short_name": "INSERT_PROJNAME",
-  "name": "INSERT_PROJNAME",
+  "short_name": "Layout21Viewer",
+  "name": "Layout21Viewer",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "display": "standalone",

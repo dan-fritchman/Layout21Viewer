@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import GitHubCircleIcon from "@material-ui/icons/GitHub";
 
 import CenterLayout from "../../layout/CenterLayout";
-import Api from "../../Api";
+// import Api from "../../Api";
 import Store from "../../Store";
 import settings from "../../settings";
 import * as AppUi from "../../Store/AppUi";

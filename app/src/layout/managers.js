@@ -65,7 +65,7 @@ class LayerManager {
   addCellLayers = (cell) => {
     // Walk through each layer, collecting its layer-type pair
     for (const layershapes of cell.shapes) {
-      const { number, purpose } = layershapes.layer;
+      const { number /*purpose*/ } = layershapes.layer;
 
       // FIXME: this probably isn't right, since we're grouping purposes together
       // Eventually store by both layer and purpose, and make a check like this.
@@ -152,7 +152,7 @@ class LayoutCellManager {
     mgr.layers = layers;
 
     for (const layershapes of cell.shapes) {
-      const { number, purpose } = layershapes.layer; // FIXME: also use the datatype!
+      const { number /*purpose*/ } = layershapes.layer; // FIXME: also use the datatype!
       const layer = layers.map.get(number);
       // Add all the Rect-Elements
       for (const rect of layershapes.rectangles) {
@@ -249,8 +249,9 @@ export const LayoutManager = new (class {
   constructor() {
     this.layers = null;
     this.protos = null;
-    this.cellnames = null;
     this.cell = null;
+    this.cellname = null;
+    this.cellnames = null;
     this.renderer = null;
     this.stage = null;
   }
@@ -286,7 +287,7 @@ export const LayoutManager = new (class {
       width: parent.offsetWidth,
       height: parent.offsetHeight,
       // backgroundColor,
-      transparent: true,
+      backgroundAlpha: 0,
     });
     this.renderer = renderer;
     parent.appendChild(renderer.view);
@@ -313,9 +314,8 @@ export const LayoutManager = new (class {
     this.layers = new LayerManager();
     // Get the cell-names
     this.cellnames = sample.cells.map((cell) => cell.name.name);
-    // FIXME: centralize this "last cell default" behavior
-    // const cell = sample.cells.slice(-1)[0];
-    const cell = sample.cells[0];
+    // Our default cell will be the last defined, often the "top-level" cell
+    const cell = sample.cells.slice(-1)[0];
     return this.drawCell(cell);
   };
   /// Draw proto-defined Cell `cell`
@@ -385,25 +385,25 @@ export const LayoutManager = new (class {
     window.removeEventListener("mousemove", this.onDrag);
     window.removeEventListener("mouseup", this.onDragEnd);
   };
+  /// Scroll to Zoom
   onWheel = (e) => {
-    if (e.deltaY > 0) {
-      const newscale = this.stage.scale.x * 0.9;
-      this.stage.scale.x = newscale;
-      this.stage.scale.y = newscale;
-    } else {
-      // FIXME: this probably has to be a function of the layout size too,
-      const newscale = this.stage.scale.x * 1.1;
-      if (newscale > 0) {
-        this.stage.scale.x = newscale;
-        this.stage.scale.y = newscale;
-      }
-    }
+    // Relative scaling factor
+    const scaleBy = e.deltaY > 0 ? 0.9 : 1.1;
+    // Note x and y scales are always set identically, maintaing the aspect ratio
+    const newscale = this.stage.scale.x * scaleBy;
+    this.stage.scale.x = newscale;
+    this.stage.scale.y = newscale;
+    // FIXME: Update our position to zoom towards the cursor
+    // this.stage.position.x -= (e.x - this.stage.position.x) * scaleBy;
+    // this.stage.position.y += (e.y - this.stage.position.y) * scaleBy;
+    // And re-render
     this.render();
   };
   onResize = () => {
-    console.log("RESIZING!!!");
-    // renderer.view.style.width = parent.clientWidth;
-    // renderer.resize(parent.clientWidth, parent.clientHeight);
+    // Resize to the new outer window dimensions
+    // Note this *does not* re-scale the layout, it only changes the canvas size.
+    this.renderer.resize(this.parent.offsetWidth, this.parent.offsetHeight);
+    this.render();
   };
   onKeyDown = (e) => {
     if (e.key === "f") {

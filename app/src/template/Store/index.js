@@ -3,19 +3,18 @@
  * ****************************** */
 
 import React from "react";
-
 import { Provider, connect } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
-
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import { themeReducer } from "./Theme";
 import { userReducer } from "./User";
 import { uiReducer } from "./AppUi";
+import settings from "../settings";
 
 export const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
@@ -51,7 +50,7 @@ const baseReducer = (state, action) => {
 };
 
 const persistConfig = {
-  key: "INSERT_PROJNAME::root",
+  key: `${settings.title}::root`,
   storage: storage,
   whitelist: ["user"],
 };

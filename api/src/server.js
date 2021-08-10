@@ -5,10 +5,9 @@ const app = express().use(cors());
 
 /// Get the sample layout
 const getSample = (_req, res) => {
-  console.log("GETTING");
-  // const sampleFile = path.resolve(__dirname, "../cells.proto", "dff.bin");
-  const sampleFile = path.resolve(__dirname, "../cells.proto", "osci.bin");
-  console.log(sampleFile);
+  // const sampleFile = path.resolve(__dirname, "../../samples", "dff.bin");
+  const sampleFile = path.resolve(__dirname, "../../samples", "secret.bin");
+  console.log(`Sending layout sample ${sampleFile}`);
   res.sendFile(sampleFile);
 };
 

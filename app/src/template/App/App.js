@@ -9,7 +9,7 @@ import { withStyles } from "@material-ui/core";
 import Headers from "../Headers";
 import Waiting from "../content/Waiting";
 import Bar from "../Bar";
-import Routes from "../Routes";
+// import Routes from "../Routes";
 import Dialogs from "../Dialogs";
 import Snackbar from "../Snackbar";
 import Store, { history } from "../Store";
