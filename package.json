@@ -23,7 +23,7 @@
     "fmt": "yarn run prettier --write .",
     "build": "yarn && concurrently \"cd api && yarn && yarn build\" \"cd app && yarn && yarn build\" ",
     "start": "cd api && yarn && yarn start",
-    "dev": "concurrently --kill-others \"cd api && yarn && yarn dev\" \"cd app && yarn && yarn dev\" "
+    "dev": "concurrently --kill-others \"cd api && yarn && yarn dev\" \"cd app && yarn && yarn start\" "
   },
   "engines": {
     "node": "14.x",

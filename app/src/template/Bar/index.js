@@ -18,6 +18,7 @@ import ThemeToggle from "../ThemeToggle";
 import { signInWithProvider } from "../Auth";
 import * as AppUi from "../Store/AppUi";
 import * as utils from "../utils";
+import CellList from "../../layout/CellList";
 
 const openSettingsDialog = () => AppUi.openDialog("settings");
 const openSignOutDialog = () => AppUi.openDialog("confirmation");
@@ -123,12 +124,14 @@ export class Bar extends Component {
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar variant="dense">
+        <Toolbar>
           {/*<IconButton edge="start" size="small" className={classes.menuButton} aria-label="Menu">*/}
           {/*    <MenuIcon/>*/}
           {/*</IconButton>*/}
 
           <h6 style={{ flexGrow: 1 }}>{title}</h6>
+
+          <CellList />
 
           {/* Modal Control-Panel */}
           <Controls />

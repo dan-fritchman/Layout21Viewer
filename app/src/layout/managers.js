@@ -61,10 +61,8 @@ class LayerManager {
     }
     return mgr;
   };
-  /// Static / Classmethod to create a LayerManager from a `layout21.raw.Cell` protobuf-defined Cell
-  static from_proto = (cell) => {
-    let mgr = new LayerManager();
-
+  /// Add all layers used in `cell`
+  addCellLayers = (cell) => {
     // Walk through each layer, collecting its layer-type pair
     for (const layershapes of cell.shapes) {
       const { number, purpose } = layershapes.layer;
@@ -74,20 +72,28 @@ class LayerManager {
       // if (mgr.map.has(number)) {
       //   throw new Error(`Repeat Layer Definition for: ${cell.name} Layer (${number}, ${purpose})`);
       // }
-      if (mgr.map.has(number)) {
+      if (this.map.has(number)) {
         continue;
       }
-      const color = mgr.nextcolor();
-      mgr.list.push({
-        index: mgr.list.length,
+      const color = this.nextcolor();
+      this.list.push({
+        index: this.list.length,
         layernum: number,
         color,
         enabled: true,
       });
       const layer = new Layer({ num: number, color });
-      mgr.map.set(number, layer);
+      this.map.set(number, layer);
     }
-    return mgr;
+  };
+  /// Clear all of our child shapes
+  clearShapes = () => {
+    for (const l of this.list) {
+      const ctr = this.map.get(l.layernum).ctr;
+      while (ctr.children.length > 0) {
+        ctr.removeChild(ctr.children[0]);
+      }
+    }
   };
   /// Add each of our Layer-containers to the `stage`
   draw = (stage) => {
@@ -102,7 +108,6 @@ class LayoutCellManager {
     this.shapes = [];
     this.paths = [];
     this.layers = null;
-    this.parent = null;
     this.span = {
       x: { min: Number.MAX_SAFE_INTEGER, max: Number.MIN_SAFE_INTEGER },
       y: { min: Number.MAX_SAFE_INTEGER, max: Number.MIN_SAFE_INTEGER },
@@ -243,6 +248,8 @@ class LayoutCellManager {
 export const LayoutManager = new (class {
   constructor() {
     this.layers = null;
+    this.protos = null;
+    this.cellnames = null;
     this.cell = null;
     this.renderer = null;
     this.stage = null;
@@ -300,19 +307,44 @@ export const LayoutManager = new (class {
     // e.g. an API call, not from this in-source loader.
     const sample = await loadSample();
 
-    // Get the layer-stack
-    this.layers = LayerManager.from_proto(sample);
-    this.layers.draw(stage);
+    // Keep a reference to the decoded protos
+    this.protos = sample;
+    // Create the layer-stack
+    this.layers = new LayerManager();
+    // Get the cell-names
+    this.cellnames = sample.cells.map((cell) => cell.name.name);
+    // FIXME: centralize this "last cell default" behavior
+    // const cell = sample.cells.slice(-1)[0];
+    const cell = sample.cells[0];
+    return this.drawCell(cell);
+  };
+  /// Draw proto-defined Cell `cell`
+  drawCell = async (cell) => {
+    // Add all the cell's layers
+    this.layers.addCellLayers(cell);
+    this.layers.draw(this.stage);
     // Add all the layout geometry
-    this.cell = LayoutCellManager.from_proto(sample, this.layers);
+    this.cell = LayoutCellManager.from_proto(cell, this.layers);
+    this.cellname = cell.name.name;
     // Size the stage to initially "zoom fit"
     const size = {
       x: this.renderer.width,
       y: this.renderer.height,
     };
-    this.cell.fit(stage, size);
+    this.cell.fit(this.stage, size);
     // And finally, actually draw it
     this.render();
+  };
+  setCell = async (name) => {
+    if (!this.cellnames.includes(name)) {
+      // FIXME: pop up a thing, do something, whatever
+      return;
+    }
+    Store.dispatch({ type: "LAYOUT_STATE", ready: false });
+    const cell = this.protos.cells.find((c) => c.name.name === name);
+    this.layers.clearShapes();
+    await this.drawCell(cell);
+    Store.dispatch({ type: "LAYOUT_STATE", ready: true });
   };
   /// Reset everything. Destroy all Pixi/WebGL objects, remove all DOM elements.
   /// Overkill? Maybe.
